@@ -21,8 +21,6 @@ namespace AuxiliarAbarrotes
             InitializeComponent();
 
             this._db = db;
-
-            this._db.AbrirBaseSistema();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -33,10 +31,21 @@ namespace AuxiliarAbarrotes
         private void FrmEtiquetas_Load(object sender, EventArgs e)
         {
             this.Text = "Impresión de etiquetas";
-
+            
             if( ! check() )
             {
                 this.Close();
+            }
+
+            try
+            {
+                this._db.AbrirBaseSistema();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo abrir la base de productos. Error: " + ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.Close();
+                return;
             }
 
             cbCategorias.Items.AddRange(this._db.getCategorias().ToArray());

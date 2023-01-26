@@ -39,20 +39,16 @@
             this.btnCambiar = new System.Windows.Forms.Button();
             this.rbMonto = new System.Windows.Forms.RadioButton();
             this.rbPorcentaje = new System.Windows.Forms.RadioButton();
-            this.chkbPrecioFinal = new System.Windows.Forms.CheckBox();
-            this.chkbPrecioVta = new System.Windows.Forms.CheckBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.tbFiltro = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbCategorias = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DEPARTAMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DESCRIPCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PVENTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PFINAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -127,8 +123,6 @@
             this.gbCambio.Controls.Add(this.btnCambiar);
             this.gbCambio.Controls.Add(this.rbMonto);
             this.gbCambio.Controls.Add(this.rbPorcentaje);
-            this.gbCambio.Controls.Add(this.chkbPrecioFinal);
-            this.gbCambio.Controls.Add(this.chkbPrecioVta);
             this.gbCambio.Location = new System.Drawing.Point(66, 48);
             this.gbCambio.Name = "gbCambio";
             this.gbCambio.Size = new System.Drawing.Size(624, 66);
@@ -138,7 +132,7 @@
             // 
             // nudValor
             // 
-            this.nudValor.Location = new System.Drawing.Point(368, 30);
+            this.nudValor.Location = new System.Drawing.Point(244, 27);
             this.nudValor.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -156,7 +150,7 @@
             // 
             // btnCambiar
             // 
-            this.btnCambiar.Location = new System.Drawing.Point(505, 24);
+            this.btnCambiar.Location = new System.Drawing.Point(381, 21);
             this.btnCambiar.Name = "btnCambiar";
             this.btnCambiar.Size = new System.Drawing.Size(119, 31);
             this.btnCambiar.TabIndex = 5;
@@ -168,7 +162,7 @@
             // rbMonto
             // 
             this.rbMonto.AutoSize = true;
-            this.rbMonto.Location = new System.Drawing.Point(249, 42);
+            this.rbMonto.Location = new System.Drawing.Point(125, 39);
             this.rbMonto.Name = "rbMonto";
             this.rbMonto.Size = new System.Drawing.Size(60, 18);
             this.rbMonto.TabIndex = 3;
@@ -179,33 +173,13 @@
             // rbPorcentaje
             // 
             this.rbPorcentaje.AutoSize = true;
-            this.rbPorcentaje.Location = new System.Drawing.Point(249, 18);
+            this.rbPorcentaje.Location = new System.Drawing.Point(125, 15);
             this.rbPorcentaje.Name = "rbPorcentaje";
             this.rbPorcentaje.Size = new System.Drawing.Size(82, 18);
             this.rbPorcentaje.TabIndex = 2;
             this.rbPorcentaje.TabStop = true;
             this.rbPorcentaje.Text = "Porcentaje";
             this.rbPorcentaje.UseVisualStyleBackColor = true;
-            // 
-            // chkbPrecioFinal
-            // 
-            this.chkbPrecioFinal.AutoSize = true;
-            this.chkbPrecioFinal.Location = new System.Drawing.Point(131, 31);
-            this.chkbPrecioFinal.Name = "chkbPrecioFinal";
-            this.chkbPrecioFinal.Size = new System.Drawing.Size(90, 18);
-            this.chkbPrecioFinal.TabIndex = 1;
-            this.chkbPrecioFinal.Text = "Precio Final";
-            this.chkbPrecioFinal.UseVisualStyleBackColor = true;
-            // 
-            // chkbPrecioVta
-            // 
-            this.chkbPrecioVta.AutoSize = true;
-            this.chkbPrecioVta.Location = new System.Drawing.Point(20, 31);
-            this.chkbPrecioVta.Name = "chkbPrecioVta";
-            this.chkbPrecioVta.Size = new System.Drawing.Size(93, 18);
-            this.chkbPrecioVta.TabIndex = 0;
-            this.chkbPrecioVta.Text = "Precio Venta";
-            this.chkbPrecioVta.UseVisualStyleBackColor = true;
             // 
             // btnBuscar
             // 
@@ -259,12 +233,10 @@
             this.dgvDatos.AllowUserToResizeRows = false;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
             this.DEPARTAMENTO,
             this.CODIGO,
             this.DESCRIPCION,
-            this.PVENTA,
-            this.PFINAL});
+            this.PVENTA});
             this.dgvDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDatos.Location = new System.Drawing.Point(0, 179);
             this.dgvDatos.Name = "dgvDatos";
@@ -274,19 +246,12 @@
             this.dgvDatos.Size = new System.Drawing.Size(867, 314);
             this.dgvDatos.TabIndex = 8;
             // 
-            // ID
-            // 
-            this.ID.HeaderText = "Id";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 90;
-            // 
             // DEPARTAMENTO
             // 
             this.DEPARTAMENTO.HeaderText = "Departamento";
             this.DEPARTAMENTO.Name = "DEPARTAMENTO";
             this.DEPARTAMENTO.ReadOnly = true;
-            this.DEPARTAMENTO.Width = 140;
+            this.DEPARTAMENTO.Width = 250;
             // 
             // CODIGO
             // 
@@ -300,21 +265,14 @@
             this.DESCRIPCION.HeaderText = "Descripcion";
             this.DESCRIPCION.Name = "DESCRIPCION";
             this.DESCRIPCION.ReadOnly = true;
-            this.DESCRIPCION.Width = 220;
+            this.DESCRIPCION.Width = 240;
             // 
             // PVENTA
             // 
             this.PVENTA.HeaderText = "Precio Vta.";
             this.PVENTA.Name = "PVENTA";
             this.PVENTA.ReadOnly = true;
-            this.PVENTA.Width = 120;
-            // 
-            // PFINAL
-            // 
-            this.PFINAL.HeaderText = "Precio Final";
-            this.PFINAL.Name = "PFINAL";
-            this.PFINAL.ReadOnly = true;
-            this.PFINAL.Width = 120;
+            this.PVENTA.Width = 140;
             // 
             // FrmPrecios
             // 
@@ -361,14 +319,10 @@
         private System.Windows.Forms.Button btnCambiar;
         private System.Windows.Forms.RadioButton rbMonto;
         private System.Windows.Forms.RadioButton rbPorcentaje;
-        private System.Windows.Forms.CheckBox chkbPrecioFinal;
-        private System.Windows.Forms.CheckBox chkbPrecioVta;
         private System.Windows.Forms.NumericUpDown nudValor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn DEPARTAMENTO;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODIGO;
         private System.Windows.Forms.DataGridViewTextBoxColumn DESCRIPCION;
         private System.Windows.Forms.DataGridViewTextBoxColumn PVENTA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PFINAL;
     }
 }

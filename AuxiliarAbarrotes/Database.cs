@@ -91,8 +91,8 @@ namespace AuxiliarAbarrotes
 
             var cmd = this._connection.CreateCommand();
 
-            cmd.CommandText = "SELECT p.ID, p.CODIGO, p.DESCRIPCION, p.TVENTA, p.PCOSTO, " +
-                                                "p.PVENTA, p.DEPT, p.PFINAL, d.NOMBRE " +
+            cmd.CommandText = "SELECT p.CODIGO, p.DESCRIPCION, p.TVENTA, p.PCOSTO, " +
+                                                "p.PVENTA, p.DEPT, d.NOMBRE " +
                                                 "FROM PRODUCTOS p " +
                                                 "LEFT JOIN DEPARTAMENTOS d ON p.DEPT=d.ID WHERE 1=1 ";
             cmd.CommandType = System.Data.CommandType.Text;
@@ -113,14 +113,13 @@ namespace AuxiliarAbarrotes
             while (r.Read())
             {
                 productos.Add( new Clases.Producto {
-                                                      Codigo = r.IsDBNull(1) ? "" : r.GetString(1),
-                                                      Descripcion = r.IsDBNull(2) ? "" : r.GetString(2),
-                                                      TVenta = r.IsDBNull(3) ? "" : r.GetString(3),
-                                                      PCosto = r.IsDBNull(4) ? 0.0 : r.GetDouble(4),
-                                                      PVenta = r.IsDBNull(5) ? 0.0 : r.GetDouble(5),
-                                                      Dept = r.IsDBNull(6) ? 0 : r.GetInt32(6),
-                                                      PFinal = r.IsDBNull(7) ? 0.0 : r.GetDouble(7),
-                                                      Departamento = r.IsDBNull(8) ? "" : r.GetString(8)
+                                                      Codigo = r.IsDBNull(0) ? "" : r.GetString(0),
+                                                      Descripcion = r.IsDBNull(1) ? "" : r.GetString(1),
+                                                      TVenta = r.IsDBNull(2) ? "" : r.GetString(2),
+                                                      PCosto = r.IsDBNull(3) ? 0.0 : r.GetDouble(3),
+                                                      PVenta = r.IsDBNull(4) ? 0.0 : r.GetDouble(4),
+                                                      Dept = r.IsDBNull(5) ? 0 : r.GetInt32(5),
+                                                      Departamento = r.IsDBNull(6) ? "" : r.GetString(6)
                 });
             }
 

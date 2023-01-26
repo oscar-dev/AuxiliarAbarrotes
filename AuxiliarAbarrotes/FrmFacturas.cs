@@ -18,7 +18,6 @@ namespace AuxiliarAbarrotes
 
             this._db = db;
 
-            this._db.AbrirBaseSistema();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -34,13 +33,28 @@ namespace AuxiliarAbarrotes
         private void FrmFacturas_Load(object sender, EventArgs e)
         {
             this.Text = "Generar Factura";
-
+            
             if (!check())
             {
                 this.Close();
             }
 
-            if (!checkConfig()) this.Close();
+            if (!checkConfig())
+            {
+                this.Close();
+                return;
+            }
+
+            try
+            {
+                this._db.AbrirBaseSistema();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo abrir la base de productos. Error: " + ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.Close();
+                return;
+            }
 
             ckbUltimos50.Checked = true;
             ckbConsumidorFinal.Checked = true;

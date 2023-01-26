@@ -39,7 +39,7 @@ namespace AuxiliarAbarrotes
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-           /*if( !check() )
+           if( !check() )
            {
                 FrmLicencia frmLicencia = new FrmLicencia();
 
@@ -49,7 +49,7 @@ namespace AuxiliarAbarrotes
 
                 return;
             }
-           */
+           
             this._database = new Database(ConfigurationManager.AppSettings.Get("dbpath"),
                                             ConfigurationManager.AppSettings.Get("dbname"));
         }

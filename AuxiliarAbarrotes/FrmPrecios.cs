@@ -37,17 +37,22 @@ namespace AuxiliarAbarrotes
         {
             this.Text = "Modificación de precios";
 
-            /*if( !check() )
+            if( !check() )
             {
                 this.Close();
-            }*/
+            }
 
-            this._db.AbrirBaseSistema();
+            try
+            {
+                this._db.AbrirBaseSistema();
+            } catch(Exception ex)
+            {
+                MessageBox.Show("No se pudo abrir la base de productos. Error: " + ex.Message , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                this.Close();
+                return;
+            }
 
             cbCategorias.Items.AddRange(this._db.getCategorias().ToArray());
-
-            chkbPrecioFinal.Checked = true;
-            chkbPrecioVta.Checked = true;
 
             rbPorcentaje.Checked = true;
         }
@@ -63,11 +68,10 @@ namespace AuxiliarAbarrotes
             foreach (var item in productos)
             {
                 int idx = dgvDatos.Rows.Add(item.Id.ToString());
-                dgvDatos.Rows[idx].Cells[1].Value = item.Departamento;
-                dgvDatos.Rows[idx].Cells[2].Value = item.Codigo;
-                dgvDatos.Rows[idx].Cells[3].Value = item.Descripcion;
-                dgvDatos.Rows[idx].Cells[4].Value = item.PVenta;
-                dgvDatos.Rows[idx].Cells[5].Value = item.PFinal;
+                dgvDatos.Rows[idx].Cells[0].Value = item.Departamento;
+                dgvDatos.Rows[idx].Cells[1].Value = item.Codigo;
+                dgvDatos.Rows[idx].Cells[2].Value = item.Descripcion;
+                dgvDatos.Rows[idx].Cells[3].Value = item.PVenta;
             }
         }
 
@@ -78,23 +82,11 @@ namespace AuxiliarAbarrotes
 
             foreach (DataGridViewRow item in dgvDatos.Rows)
             {
-                if( chkbPrecioVta.Checked )
-                {
-                    double precio = Double.Parse(item.Cells[4].Value.ToString());
+                double precio = Double.Parse(item.Cells[3].Value.ToString());
 
-                    precio += porcentaje ? (precio * (valor/100.0)) : valor;
+                precio += porcentaje ? (precio * (valor/100.0)) : valor;
 
-                    item.Cells[4].Value = precio;
-                }
-
-                if ( chkbPrecioFinal.Checked)
-                {
-                    double precio = Double.Parse(item.Cells[5].Value.ToString());
-
-                    precio += porcentaje ? (precio * (valor / 100.0)) : valor;
-
-                    item.Cells[5].Value = precio;
-                }
+                item.Cells[3].Value = precio;
             }
         }
 
@@ -105,21 +97,12 @@ namespace AuxiliarAbarrotes
                 foreach (DataGridViewRow item in dgvDatos.Rows)
                 {
                     //int id = int.Parse(item.Cells[0].Value.ToString());
-                    string codigo = item.Cells[0].Value.ToString();
+                    string codigo = item.Cells[1].Value.ToString();
 
-                    if (chkbPrecioVta.Checked)
-                    {
-                        double precio = double.Parse(item.Cells[4].Value.ToString());
+                    double precio = double.Parse(item.Cells[3].Value.ToString());
 
-                        this._db.UpdatePrecioVenta(codigo, precio);
-                    }
+                    this._db.UpdatePrecioVenta(codigo, precio);
 
-                    if (chkbPrecioFinal.Checked)
-                    {
-                        double precio = double.Parse(item.Cells[5].Value.ToString());
-
-                        this._db.UpdatePrecioFinal(codigo, precio);
-                    }
                 }
 
                 MessageBox.Show("Los precios se actualizaron correctamente", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
