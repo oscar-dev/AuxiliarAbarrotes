@@ -13,9 +13,12 @@ namespace AuxiliarAbarrotes
         void UpdatePrecioFinal(string codigo, double monto);
         Configuracion LeerConfiguracion();
         void GrabarConfiguracion(Configuracion configuracion);
+        void GrabarConfigPathDB(string pathDB);
         DatosFactura leerDatosFactura();
         void GrabarDatosFactura(DatosFactura datosFactura);
         void AbrirBaseSistema();
+        void AbrirCopiaBaseSistema();
+        void CerrarBaseSistemas();
         void GrabarNroComprobante(int nroCbte);
     }
 }

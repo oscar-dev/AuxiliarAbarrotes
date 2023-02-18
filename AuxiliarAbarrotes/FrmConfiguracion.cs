@@ -142,21 +142,27 @@ namespace AuxiliarAbarrotes
         }
         private void btnGetAfip_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+            btnGetAfip.Enabled = false;
+
             if (tbClaveCert.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("No se ingresó ninguna clave", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor.Current = Cursors.Default;
                 return;
             }
 
             if (tbCUIT.Text.Trim().Length <= 0)
             {
                 MessageBox.Show("No se ingresó ningun CUIT", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor.Current = Cursors.Default;
                 return;
             }
 
             if( tbPathCert.Text.Trim().Length <= 0 )
             {
                 MessageBox.Show("No se ingresó ningun certificado", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor.Current = Cursors.Default;
                 return;
             }
 
@@ -169,6 +175,10 @@ namespace AuxiliarAbarrotes
             int ultimoCbte = fe.GetUltimoCbte(1, 6);
 
             tbUltimoCbte.Text = ultimoCbte.ToString();
+            
+            btnGetAfip.Enabled = true;
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace AuxiliarAbarrotes
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-           if( !check() )
+           /*if( !check() )
            {
                 FrmLicencia frmLicencia = new FrmLicencia();
 
@@ -48,10 +48,49 @@ namespace AuxiliarAbarrotes
                 this.Close();
 
                 return;
-            }
+            }*/
            
             this._database = new Database(ConfigurationManager.AppSettings.Get("dbpath"),
                                             ConfigurationManager.AppSettings.Get("dbname"));
+        
+            if( ! BuscarBase() )
+            {
+                MessageBox.Show("No se encontró la base de datos. Configure manualmente su ubicación");
+            }
+        }
+
+        private bool BuscarBase()
+        {
+            Clases.Configuracion config = this._database.LeerConfiguracion();
+
+            if ( config.pathDB.Trim().Length > 0 && File.Exists(config.pathDB) )
+            {
+                return true;
+            } else
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+
+                path += @"\AbarrotesPDV\db\PDVDATA.FDB";
+
+                if( File.Exists(path) )
+                {
+                    this._database.GrabarConfigPathDB(path);
+
+                    return true;
+                }
+
+                path = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+
+                path += @"\AbarrotesPDV\db\PDVDATA.FDB";
+
+                if (File.Exists(path))
+                {
+                    this._database.GrabarConfigPathDB(path);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void tsbFacturas_Click(object sender, EventArgs e)
@@ -67,7 +106,7 @@ namespace AuxiliarAbarrotes
 
             frmConfiguracion.ShowDialog();
         }
-
+        
         private bool check()
         {
             bool ret = false;

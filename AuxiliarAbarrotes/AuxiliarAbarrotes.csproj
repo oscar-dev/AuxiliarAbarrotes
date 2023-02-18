@@ -126,6 +126,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="FrmCantidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCantidad.Designer.cs">
+      <DependentUpon>FrmCantidad.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmConfiguracion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,12 @@
     <Compile Include="FrmPrecios.designer.cs">
       <DependentUpon>FrmPrecios.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmProductos.Designer.cs">
+      <DependentUpon>FrmProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmRptEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,6 +188,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <EmbeddedResource Include="Etiquetas.rdlc" />
+    <EmbeddedResource Include="FrmCantidad.resx">
+      <DependentUpon>FrmCantidad.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmConfiguracion.resx">
       <DependentUpon>FrmConfiguracion.cs</DependentUpon>
     </EmbeddedResource>
@@ -193,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrecios.resx">
       <DependentUpon>FrmPrecios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmProductos.resx">
+      <DependentUpon>FrmProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRptEtiqueta.resx">
       <DependentUpon>FrmRptEtiqueta.cs</DependentUpon>

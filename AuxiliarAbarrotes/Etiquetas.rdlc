@@ -6,164 +6,177 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.24875in</Width>
+              <Width>1.8425in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>1.86333in</Height>
+              <Height>1.48833in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
                     <Rectangle Name="Rectangle2">
                       <ReportItems>
-                        <Textbox Name="Nombre">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Nombre.Value</Value>
+                        <Rectangle Name="Rectangle8">
+                          <ReportItems>
+                            <Textbox Name="Nombre">
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Nombre.Value</Value>
+                                      <Style>
+                                        <FontSize>16pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
                                   <Style>
-                                    <FontSize>16pt</FontSize>
+                                    <TextAlign>Center</TextAlign>
                                   </Style>
-                                </TextRun>
-                              </TextRuns>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Nombre</rd:DefaultName>
+                              <Top>0.03811cm</Top>
+                              <Left>0.02646cm</Left>
+                              <Height>0.78819in</Height>
+                              <Width>1.83209in</Width>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
                               </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Nombre</rd:DefaultName>
-                          <Top>0.43278in</Top>
-                          <Left>0.05292cm</Left>
-                          <Height>0.78819in</Height>
-                          <Width>2.22792in</Width>
+                            </Textbox>
+                            <Textbox Name="Precio">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>$ </Value>
+                                      <Style>
+                                        <FontSize>22pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Precio.Value</Value>
+                                      <Style>
+                                        <FontSize>22pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Precio</rd:DefaultName>
+                              <Top>0.83097in</Top>
+                              <Left>0.02646cm</Left>
+                              <Height>0.39583in</Height>
+                              <Width>1.83209in</Width>
+                              <ZIndex>1</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="Textbox4">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Now()</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                        <Format>d/M/yyyy</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox3</rd:DefaultName>
+                              <Top>1.25458in</Top>
+                              <Left>0.91542in</Left>
+                              <Height>0.17708in</Height>
+                              <Width>0.92708in</Width>
+                              <ZIndex>2</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="Textbox3">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Cod: </Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!Codigo.Value</Value>
+                                      <Style>
+                                        <FontSize>8pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox3</rd:DefaultName>
+                              <Top>1.24069in</Top>
+                              <Left>0.02645cm</Left>
+                              <Height>0.17708in</Height>
+                              <Width>0.905in</Width>
+                              <ZIndex>3</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </ReportItems>
+                          <KeepTogether>true</KeepTogether>
+                          <Height>1.44667in</Height>
+                          <Width>1.8425in</Width>
                           <Style>
                             <Border>
-                              <Style>None</Style>
+                              <Style>Solid</Style>
                             </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Textbox>
-                        <Textbox Name="Departamento">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Departamento.Value</Value>
-                                  <Style>
-                                    <FontSize>12pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Departamento</rd:DefaultName>
-                          <Top>0.00569in</Top>
-                          <Left>0.02083in</Left>
-                          <Height>0.23611in</Height>
-                          <Width>2.22792in</Width>
-                          <ZIndex>1</ZIndex>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <Textbox Name="Precio">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Precio.Value</Value>
-                                  <Style>
-                                    <FontSize>22pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value> $</Value>
-                                  <Style>
-                                    <FontSize>22pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Precio</rd:DefaultName>
-                          <Top>1.24875in</Top>
-                          <Left>0.05292cm</Left>
-                          <Height>0.39583in</Height>
-                          <Width>2.22792in</Width>
-                          <ZIndex>2</ZIndex>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <Textbox Name="Textbox3">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Cod: </Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Fields!Codigo.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox3</rd:DefaultName>
-                          <Top>0.28347in</Top>
-                          <Left>0.02083in</Left>
-                          <Height>0.17708in</Height>
-                          <Width>2.22792in</Width>
-                          <ZIndex>3</ZIndex>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
+                        </Rectangle>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
                       <Style>
@@ -191,8 +204,8 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>Items</DataSetName>
-        <Height>1.86333in</Height>
-        <Width>2.24875in</Width>
+        <Height>1.48833in</Height>
+        <Width>1.8425in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -200,17 +213,17 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.86333in</Height>
+    <Height>1.48833in</Height>
     <Style />
   </Body>
-  <Width>2.24875in</Width>
+  <Width>1.8425in</Width>
   <Page>
-    <LeftMargin>0.7874in</LeftMargin>
-    <RightMargin>0.7874in</RightMargin>
-    <TopMargin>0.7874in</TopMargin>
-    <BottomMargin>0.7874in</BottomMargin>
-    <Columns>3</Columns>
-    <ColumnSpacing>0.05118in</ColumnSpacing>
+    <LeftMargin>0.32in</LeftMargin>
+    <RightMargin>0.32in</RightMargin>
+    <TopMargin>0.32in</TopMargin>
+    <BottomMargin>0.32in</BottomMargin>
+    <Columns>4</Columns>
+    <ColumnSpacing>0in</ColumnSpacing>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>

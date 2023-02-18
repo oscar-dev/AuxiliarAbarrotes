@@ -116,7 +116,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Price Manager";
+            this.Text = "Auxiliar Abarrotes";
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

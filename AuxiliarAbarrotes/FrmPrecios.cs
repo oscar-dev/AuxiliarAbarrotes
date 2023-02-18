@@ -36,18 +36,18 @@ namespace AuxiliarAbarrotes
         private void FrmPrecios_Load(object sender, EventArgs e)
         {
             this.Text = "Modificación de precios";
-
+            /*
             if( !check() )
             {
                 this.Close();
             }
-
+            */
             try
             {
                 this._db.AbrirBaseSistema();
-            } catch(Exception ex)
+            } catch
             {
-                MessageBox.Show("No se pudo abrir la base de productos. Error: " + ex.Message , this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show("No se pudo abrir la base de productos.", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 this.Close();
                 return;
             }
@@ -187,6 +187,18 @@ namespace AuxiliarAbarrotes
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void FrmPrecios_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (this._db != null)
+            {
+                this._db.CerrarBaseSistemas();
+            }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

@@ -258,6 +258,7 @@
             this.Name = "FrmFacturas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmFacturas";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmFacturas_FormClosed);
             this.Load += new System.EventHandler(this.FrmFacturas_Load);
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();

@@ -33,12 +33,12 @@ namespace AuxiliarAbarrotes
         private void FrmFacturas_Load(object sender, EventArgs e)
         {
             this.Text = "Generar Factura";
-            
+            /*
             if (!check())
             {
                 this.Close();
-            }
-
+            }*/
+            
             if (!checkConfig())
             {
                 this.Close();
@@ -72,6 +72,8 @@ namespace AuxiliarAbarrotes
         private void buscarTickets(bool ultimos50)
         {
             IList<Interfaces.ITicket> tickets = this._db.GetTickets(ultimos50);
+
+            dgvDatos.Rows.Clear();
 
             foreach(Interfaces.ITicket ticket in tickets)
             {
@@ -176,6 +178,9 @@ namespace AuxiliarAbarrotes
                     factura.articuloTickets = (List<Interfaces.IArticuloTicket>)lbListaArticulos.Tag;
 
                     factura.Generar();
+                } else
+                {
+                    MessageBox.Show("Error facturando: [" + facturaElectronica.ErrorMessage + "]", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -249,6 +254,17 @@ namespace AuxiliarAbarrotes
             }
 
             return ret;
+        }
+
+        private void FrmFacturas_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (this._db != null)
+            {
+                this._db.CerrarBaseSistemas();
+            }
+            Cursor.Current = Cursors.Default;
         }
     }
 }

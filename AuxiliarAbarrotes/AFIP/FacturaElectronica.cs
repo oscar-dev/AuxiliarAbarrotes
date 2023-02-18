@@ -12,6 +12,7 @@ namespace AuxiliarAbarrotes.AFIP
         public int NroCbte { get; set; }
         public DateTime Fecha { get; set; }
         public double Monto { get; set; }
+        public string ErrorMessage { get; set; }
 
         public String Dummy()
         {
@@ -157,13 +158,14 @@ namespace AuxiliarAbarrotes.AFIP
             request.Body.FeCAEReq.FeDetReq = new wsfe.FECAEDetRequest[1];
 
             request.Body.FeCAEReq.FeDetReq[0] = req;
-            /*
+            
             wsfe.FECAESolicitarResponse response = cliente.FECAESolicitar(request);
 
             if (this.HasError(response.Body.FECAESolicitarResult.Errors)) {
                 foreach( var error in response.Body.FECAESolicitarResult.Errors)
                 {
-                    MessageBox.Show(error.Code.ToString() + " - " + error.Msg);
+                    this.ErrorMessage = error.Msg;
+                    //MessageBox.Show(error.Code.ToString() + " - " + error.Msg);
                 }
                 return false;
             }
@@ -172,16 +174,17 @@ namespace AuxiliarAbarrotes.AFIP
             {
                 foreach (var obs in response.Body.FECAESolicitarResult.FeDetResp[0].Observaciones)
                 {
-                    MessageBox.Show(obs.Code.ToString() + " - " + obs.Msg);
+                    this.ErrorMessage = obs.Msg;
+                    //MessageBox.Show(obs.Code.ToString() + " - " + obs.Msg);
                 }
                 return false;
             }
             this.CAE = response.Body.FECAESolicitarResult.FeDetResp[0].CAE;
             this.FechaCbte = response.Body.FECAESolicitarResult.FeDetResp[0].CbteFch;
-            */
+            
 
-            this.CAE = "72531072235038";
-            this.FechaCbte = "10/01/2023";
+            //this.CAE = "72531072235038";
+            //this.FechaCbte = "10/01/2023";
             return true;
         }
     }

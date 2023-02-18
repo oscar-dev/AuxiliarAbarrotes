@@ -286,6 +286,7 @@
             this.Name = "FrmPrecios";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmPrecios";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmPrecios_FormClosed);
             this.Load += new System.EventHandler(this.FrmPrecios_Load);
             this.Resize += new System.EventHandler(this.FrmPrecios_Resize);
             this.toolStrip2.ResumeLayout(false);

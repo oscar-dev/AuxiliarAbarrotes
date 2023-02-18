@@ -5,6 +5,7 @@ using FirebirdSql.Data.FirebirdClient;
 
 using AuxiliarAbarrotes.Clases;
 using System.Data.Common;
+using System.Threading;
 
 namespace AuxiliarAbarrotes
 {
@@ -12,6 +13,7 @@ namespace AuxiliarAbarrotes
     {
         private FbConnection _db;
         private FbConnection _connection;
+        private string _fullPathTemp;
         public Database(string dbpath, string dbname)
         {
             string fullname = dbpath + "\\" + dbname;
@@ -23,18 +25,62 @@ namespace AuxiliarAbarrotes
             this._db.Open();
             
         }
+        public void AbrirCopiaBaseSistema()
+        {
+            if (this._connection != null) this._connection.Close();
+
+            this._connection = null;
+
+            Configuracion config = this.LeerConfiguracion();
+
+            //string dbname = System.IO.Path.GetTempFileName();
+            string dbname = System.IO.Path.GetTempPath() + @"\basetemp.fdb";
+            this._fullPathTemp = dbname;
+
+            System.IO.File.Copy(config.pathDB, dbname, true);
+
+            var connection = new FbConnection(@"ServerType=1;User=sysdba;Connection lifetime=1;Password=masterkey;Database=" + dbname);
+
+            connection.Open();
+
+            this._connection = connection;
+        }
         public void AbrirBaseSistema()
         {
             if( this._connection == null )
             {
                 Configuracion config = this.LeerConfiguracion();
 
-                this._connection = new FbConnection(@"ServerType=1;User=sysdba;Password=masterkey;Database=" + config.pathDB);
+                var connection = new FbConnection(@"ServerType=1;User=sysdba;Password=masterkey;Database=" + config.pathDB);
+                    
+                connection.Open();
 
-                this._connection.Open();
+                this._connection = connection;
             }
         }
 
+        public void CerrarBaseSistemas()
+        {
+            if (this._connection != null)
+            {
+                if( this._connection.State == System.Data.ConnectionState.Open )
+                {
+                    this._connection.Close();
+
+                    this._connection.Dispose();
+                }
+
+                this._connection = null;
+
+                Thread.Sleep(1500);
+                
+                /*
+                if( this._fullPathTemp != null && this._fullPathTemp.Length > 0 )
+                {
+                    System.IO.File.Delete(this._fullPathTemp);
+                }*/
+            }
+        }
         public IList<Interfaces.ICategoria> getCategorias()
         {
             List<Interfaces.ICategoria> categorias = new List<Interfaces.ICategoria>();
@@ -53,6 +99,8 @@ namespace AuxiliarAbarrotes
 
             r.Close();
 
+            cmd.Dispose();
+
             return categorias;
         }
         public IList<Interfaces.ITicket> GetTickets(bool ultimos50)
@@ -60,12 +108,13 @@ namespace AuxiliarAbarrotes
             List<Interfaces.ITicket> tickets = new List<Interfaces.ITicket>();
 
             var cmd = this._connection.CreateCommand();
-
-            cmd.CommandText = "SELECT FIRST 50 v.ID, v.NOMBRE, v.CREADO_EN, v.SUBTOTAL, " + 
+            
+            cmd.CommandText = "SELECT v.ID, v.NOMBRE, v.CREADO_EN, v.SUBTOTAL, " + 
                                 "v.TOTAL, v.GANANCIA, v.VENDIDO_EN, COUNT(va.ID) " +
                                 "FROM VENTATICKETS v INNER JOIN VENTATICKETS_ARTICULOS va " +
                                 "ON v.ID=va.TICKET_ID GROUP BY v.ID, v.NOMBRE, v.CREADO_EN, " +
                                 "v.SUBTOTAL, v.TOTAL, v.GANANCIA, v.VENDIDO_EN ORDER BY v.CREADO_EN DESC";
+
 
             FbDataReader r = cmd.ExecuteReader();
 
@@ -83,6 +132,10 @@ namespace AuxiliarAbarrotes
                 });
             }
 
+            r.Close();
+
+            cmd.Dispose();
+
             return tickets;
         }
         public IList<Interfaces.IProducto> getProductos(int categoria_id, string filtro)
@@ -91,11 +144,12 @@ namespace AuxiliarAbarrotes
 
             var cmd = this._connection.CreateCommand();
 
+            cmd.CommandType = System.Data.CommandType.Text;
+
             cmd.CommandText = "SELECT p.CODIGO, p.DESCRIPCION, p.TVENTA, p.PCOSTO, " +
                                                 "p.PVENTA, p.DEPT, d.NOMBRE " +
                                                 "FROM PRODUCTOS p " +
                                                 "LEFT JOIN DEPARTAMENTOS d ON p.DEPT=d.ID WHERE 1=1 ";
-            cmd.CommandType = System.Data.CommandType.Text;
 
             if( categoria_id >= 0 )
             {
@@ -109,7 +163,7 @@ namespace AuxiliarAbarrotes
             }
 
             FbDataReader r = cmd.ExecuteReader();
-
+            
             while (r.Read())
             {
                 productos.Add( new Clases.Producto {
@@ -122,8 +176,14 @@ namespace AuxiliarAbarrotes
                                                       Departamento = r.IsDBNull(6) ? "" : r.GetString(6)
                 });
             }
-
+            
             r.Close();
+            
+            r = null;
+
+            cmd.Dispose();
+
+            cmd = null;
 
             return productos;
         }
@@ -153,6 +213,8 @@ namespace AuxiliarAbarrotes
             }
 
             dr.Close();
+
+            cmd.Dispose();
 
             return articuloTickets;
         }
@@ -255,7 +317,36 @@ namespace AuxiliarAbarrotes
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
+        public void GrabarConfigPathDB(string pathDB)
+        {
+            var cmd = this._db.CreateCommand();
+
+            cmd.CommandText = "SELECT count(1) FROM configuracion";
+            cmd.CommandType = System.Data.CommandType.Text;
+
+            var value = cmd.ExecuteScalar();
+
+            if (value == null || (int)value == 0)
+            {
+                cmd.CommandText = "INSERT INTO configuracion(id, pathdb)";
+
+                cmd.Parameters.AddWithValue("@id", 1);
+                cmd.Parameters.AddWithValue("@pathdb", pathDB);
+
+                cmd.ExecuteNonQuery();
+            }
+            else
+            {
+                cmd.CommandText = "UPDATE configuracion SET pathdb=@pathdb WHERE id=@id";
+
+                cmd.Parameters.AddWithValue("@pathdb", pathDB);
+                cmd.Parameters.AddWithValue("@id", 1);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public DatosFactura leerDatosFactura()
         {
             DatosFactura datosFactura = new DatosFactura();

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEtiquetas));
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -40,12 +41,12 @@
             this.cbCategorias = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvDatos = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DEPARTAMENTO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CODIGO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DESCRIPCION = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PVENTA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PFINAL = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -56,6 +57,7 @@
             // 
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
+            this.toolStripButton3,
             this.toolStripButton2});
             this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
@@ -75,6 +77,19 @@
             this.toolStripButton1.Text = "&Imprimir";
             this.toolStripButton1.ToolTipText = "Precios";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.AutoSize = false;
+            this.toolStripButton3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(120, 50);
+            this.toolStripButton3.Text = "&Codigos";
+            this.toolStripButton3.ToolTipText = "Precios";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripButton2
             // 
@@ -97,6 +112,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(742, 99);
             this.panel1.TabIndex = 4;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel2
             // 
@@ -163,27 +179,24 @@
             this.dgvDatos.AllowUserToResizeRows = false;
             this.dgvDatos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDatos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
             this.DEPARTAMENTO,
             this.CODIGO,
             this.DESCRIPCION,
             this.PVENTA,
-            this.PFINAL});
+            this.PFINAL,
+            this.cantidad});
             this.dgvDatos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDatos.Location = new System.Drawing.Point(0, 152);
+            this.dgvDatos.MultiSelect = false;
             this.dgvDatos.Name = "dgvDatos";
             this.dgvDatos.ReadOnly = true;
             this.dgvDatos.RowHeadersVisible = false;
             this.dgvDatos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDatos.Size = new System.Drawing.Size(742, 205);
             this.dgvDatos.TabIndex = 7;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "Id";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 70;
+            this.dgvDatos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatos_CellDoubleClick);
+            this.dgvDatos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvDatos_KeyDown);
+            this.dgvDatos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvDatos_KeyUp);
             // 
             // DEPARTAMENTO
             // 
@@ -217,6 +230,12 @@
             this.PFINAL.Name = "PFINAL";
             this.PFINAL.ReadOnly = true;
             // 
+            // cantidad
+            // 
+            this.cantidad.HeaderText = "Cantidad";
+            this.cantidad.Name = "cantidad";
+            this.cantidad.ReadOnly = true;
+            // 
             // FrmEtiquetas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -229,6 +248,7 @@
             this.Name = "FrmEtiquetas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmEtiquetas";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmEtiquetas_FormClosed);
             this.Load += new System.EventHandler(this.FrmEtiquetas_Load);
             this.Resize += new System.EventHandler(this.FrmEtiquetas_Resize);
             this.toolStrip2.ResumeLayout(false);
@@ -255,11 +275,12 @@
         private System.Windows.Forms.ComboBox cbCategorias;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnBuscar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn DEPARTAMENTO;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODIGO;
         private System.Windows.Forms.DataGridViewTextBoxColumn DESCRIPCION;
         private System.Windows.Forms.DataGridViewTextBoxColumn PVENTA;
         private System.Windows.Forms.DataGridViewTextBoxColumn PFINAL;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
     }
 }

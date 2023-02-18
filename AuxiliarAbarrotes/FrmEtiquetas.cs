@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using AuxiliarAbarrotes.Clases;
+using AuxiliarAbarrotes.Interfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,15 +33,15 @@ namespace AuxiliarAbarrotes
         private void FrmEtiquetas_Load(object sender, EventArgs e)
         {
             this.Text = "Impresión de etiquetas";
-            
+            /*
             if( ! check() )
             {
                 this.Close();
             }
-
+            */
             try
             {
-                this._db.AbrirBaseSistema();
+                this._db.AbrirCopiaBaseSistema();
             }
             catch (Exception ex)
             {
@@ -59,19 +61,20 @@ namespace AuxiliarAbarrotes
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             Interfaces.ICategoria categoria = (Interfaces.ICategoria)cbCategorias.SelectedItem;
-            
-            IList<Interfaces.IProducto> productos = this._db.getProductos( categoria==null ? -1 : categoria.Id, tbFiltro.Text);
 
-            dgvDatos.Rows.Clear();
+            FrmProductos frmProductos = new FrmProductos(this._db, categoria, tbFiltro.Text);
             
-            foreach(var item in productos)
+            if( frmProductos.ShowDialog() == DialogResult.OK )
             {
-                int idx = dgvDatos.Rows.Add(item.Id.ToString());
-                dgvDatos.Rows[idx].Cells[1].Value = item.Departamento;
-                dgvDatos.Rows[idx].Cells[2].Value = item.Codigo;
-                dgvDatos.Rows[idx].Cells[3].Value = item.Descripcion;
-                dgvDatos.Rows[idx].Cells[4].Value = item.PVenta;
-                dgvDatos.Rows[idx].Cells[5].Value = item.PFinal;
+                foreach (var item in frmProductos.Productos)
+                {
+                    int idx = dgvDatos.Rows.Add(item.Departamento);
+                    dgvDatos.Rows[idx].Cells[1].Value = item.Codigo;
+                    dgvDatos.Rows[idx].Cells[2].Value = item.Descripcion;
+                    dgvDatos.Rows[idx].Cells[3].Value = item.PVenta;
+                    dgvDatos.Rows[idx].Cells[4].Value = item.PFinal;
+                    dgvDatos.Rows[idx].Cells[5].Value = 1;
+                }
             }
         }
 
@@ -81,13 +84,18 @@ namespace AuxiliarAbarrotes
 
             foreach(DataGridViewRow item in dgvDatos.Rows)
             {
-                datos.Add(new Clases.Etiqueta()
+                int cantidad = Convert.ToInt32(item.Cells[5].Value);
+
+                for(int i = 0; i < cantidad; i++)
                 {
-                    Codigo = item.Cells[2].Value.ToString(),
-                    Nombre = item.Cells[3].Value.ToString(),
-                    Departamento = item.Cells[1].Value.ToString(),
-                    Precio = Double.Parse(item.Cells[5].Value.ToString())
-                });
+                    datos.Add(new Clases.Etiqueta()
+                    {
+                        Codigo = item.Cells[1].Value.ToString(),
+                        Nombre = item.Cells[2].Value.ToString(),
+                        Departamento = item.Cells[0].Value.ToString(),
+                        Precio = Double.Parse(item.Cells[4].Value.ToString())
+                    });
+                }
             }
 
             FrmRptEtiqueta frmRptEtiqueta = new FrmRptEtiqueta(datos);
@@ -165,6 +173,62 @@ namespace AuxiliarAbarrotes
             }
 
             return ret;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void FrmEtiquetas_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if( this._db != null )
+            {
+                this._db.CerrarBaseSistemas();
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void cambiarCantidad()
+        {
+            if (dgvDatos.SelectedRows.Count > 0)
+            {
+                FrmCantidad frmCantidad = new FrmCantidad();
+
+                frmCantidad.Cantidad = Convert.ToInt32(dgvDatos.SelectedRows[0].Cells[5].Value);
+
+                if (frmCantidad.ShowDialog() == DialogResult.OK)
+                {
+                    dgvDatos.SelectedRows[0].Cells[5].Value = frmCantidad.Cantidad;
+                }
+            }
+        }
+
+        private void dgvDatos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            cambiarCantidad();
+        }
+
+        private void dgvDatos_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void dgvDatos_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    cambiarCantidad();
+                    break;
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
